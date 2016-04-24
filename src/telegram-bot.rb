@@ -1,5 +1,7 @@
 require 'telegram/bot'
 require 'json'
+require 'net/http'
+
 
 
 token = '211537550:AAGSZIPYI1SaBDYtssv8dNGC81rD-rdJQTU'
@@ -37,7 +39,14 @@ Telegram::Bot::Client.run(token) do |bot|
         
         
       end
-      puts JSON.generate(statHash)
+      uri = URI.parse "http://localhost:3000"
+      http = Net::HTTP.new(uri.host, uri.port)
+      req = Net::HTTP::Post.new("/bodystats")
+      req.content_type = 'application/json'
+      req.body = statHash.to_json
+      response = http.request(req)
+      
+
     end
   end
 end
