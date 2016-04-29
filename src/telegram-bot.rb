@@ -3,6 +3,15 @@ require 'json'
 require 'net/http'
 
 
+def get_date(date)
+  date = date.split(",")
+  time_part = DateTime.strptime(date[0],"%R:%S")
+  date_part = DateTime.strptime(date[2],"%m/ %d/%Y")
+  whole_date =DateTime.new(date_part.year, date_part.month, date_part.day, time_part.hour, time_part.min, time_part.sec, time_part.zone)
+end
+
+
+
 
 token = '211537550:AAGSZIPYI1SaBDYtssv8dNGC81rD-rdJQTU'
 statHash ={:bodystat => {}}
@@ -17,7 +26,9 @@ Telegram::Bot::Client.run(token) do |bot|
 
         case data[0]
         when "Time"
-          date = DateTime.strptime(data[1], "%R:%S, %a,%m/ %d/%Y")
+          
+          date = get_date(data[1])
+          puts date.to_s
           statHash[:bodystat][:date] = date.to_s
         when "Weight"
           statHash[:bodystat][:body_weight] = data[1].tr("kg", '')
