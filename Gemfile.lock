@@ -29,6 +29,3 @@ PLATFORMS
 
 DEPENDENCIES
   telegram-bot-ruby
-
-BUNDLED WITH
-   1.11.2

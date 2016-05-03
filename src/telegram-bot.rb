@@ -26,7 +26,6 @@ Telegram::Bot::Client.run(token) do |bot|
 
         case data[0]
         when "Time"
-          puts "HERE!!!: " + data[1]
           date = get_date(data[1])
           puts date.to_s
           statHash[:bodystat][:date] = date.to_s
